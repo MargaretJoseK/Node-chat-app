@@ -1,4 +1,22 @@
 var socket= io();
+
+function scrollToBottom()
+{
+    //selectors
+    var messages=jQuery('#messages');
+    var newMessage=messages.children('li:las-child');
+    var clientHeight = messages.prop('clientheight'); //prop() is a cross browswer way to fetch the property. its an alternative of JQuery.
+    var scrollTop = messages.prop('scrollTop');
+    var scrollHeight = messages.prop('scrollHeight');
+    var newMessageHeight= newMessage.innerHeight();
+    var lastmessageHeight = newMessageHeight.prev().innerHeight();
+
+    if(clientHeight + scrollTop + newMessageHeight + lastmessageHeight >=scrollHeight)
+    {
+        messages.scrollTop(scrollHeight);
+
+    }
+}
 socket.on('connected',function(){
    
     console.log("Connected to server.");
@@ -41,12 +59,12 @@ socket.on('newLocationMessage',function(message){
     var html=Mustache.render(template,{
 
         from : message.from,
-        url=message.url,
+        url : message.url,
         createdAt : formattedTime
 
     });
     jQuery('#messages').append(html);
-
+    scrollToBottom();
     // var li = jQuery('<li></li>');
     // var a =jQuery('<a target="_blank">My current location</a>');
 
