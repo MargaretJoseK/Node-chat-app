@@ -25,14 +25,14 @@ class Users
         var user= this.getUser(id);
         if(user)
         {
-            this.users=this.users.filter((user)=>user.id !==id);
+            this.users=this.users.filter((user)=>user.id !== id);
         } 
         return user;
     }
 
     getUser(id)
     {
-        return this.users.filter((user)=>user.id===id)
+        return this.users.filter((user)=>user.id===id)[0]
     }
     
     getUserList(room)
@@ -45,4 +45,4 @@ class Users
 }
 
 
-module.exports={Users};
+module.exports={Users}; 
